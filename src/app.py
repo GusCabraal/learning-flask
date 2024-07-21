@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
 from infra.db import get_users_from_db
+from infra.model.user_model import User
 
 
 app = Flask(__name__)
@@ -7,7 +8,8 @@ app = Flask(__name__)
 
 @app.route("/")
 def get_users():
-    users = get_users_from_db()
+    users_from_db = get_users_from_db()
+    users = [User(user).to_dict() for user in users_from_db]
     return jsonify(users)
 
 
