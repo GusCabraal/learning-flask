@@ -27,6 +27,13 @@ def create_user():
     return jsonify(new_user)
 
 
+@app.route("/<id>", methods=["PUT"])
+def update_user_by_id(id):
+    updated_user_from_db = Database.update(id, request.json)
+    updated_user = User(updated_user_from_db).to_dict()
+    return jsonify(updated_user)
+
+
 def start_server(host: str = "0.0.0.0", port: int = 8000):
     print(f"Server in running on port {port}")
     return app.run(debug=True, host=host, port=port)

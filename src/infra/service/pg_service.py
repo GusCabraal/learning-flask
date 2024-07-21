@@ -14,7 +14,7 @@ class Database:
     @classmethod
     def get_users_from_db(self):
         cursor = self.connect().cursor()
-        cursor.execute("select * from users")
+        cursor.execute("SELECT * FROM users ORDER BY created_at DESC")
         users = cursor.fetchall()
         cursor.close()
         return users
@@ -34,6 +34,19 @@ class Database:
         cursor.execute(
             "INSERT INTO users (name, cpf) VALUES (%s, %s) RETURNING *",
             (data["name"], data["cpf"]),
+        )
+        conn.commit()
+        user = cursor.fetchone()
+        cursor.close()
+        return user
+
+    @classmethod
+    def update(self, id, data):
+        conn = self.connect()
+        cursor = conn.cursor()
+        cursor.execute(
+            "UPDATE users SET name = %s, cpf = %s WHERE id = %s RETURNING *",
+            (data["name"], data["cpf"], id),
         )
         conn.commit()
         user = cursor.fetchone()
