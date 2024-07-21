@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from infra.db import Database
+from infra.service.pg_service import Database
 from infra.model.user_model import User
 
 
