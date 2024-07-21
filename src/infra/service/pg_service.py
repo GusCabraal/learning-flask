@@ -3,14 +3,6 @@ import psycopg2
 
 
 class Database:
-    def connect():
-        return psycopg2.connect(
-            dbname=environ.get("DB_NAME"),
-            host=environ.get("DB_HOST"),
-            password=environ.get("DB_PASS"),
-            user=environ.get("DB_USER"),
-        )
-
     @classmethod
     def get_users_from_db(self):
         return self.run_query("SELECT * FROM users ORDER BY created_at DESC", [])
