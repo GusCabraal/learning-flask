@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from infra.db import Database
 from infra.model.user_model import User
 
@@ -14,10 +14,17 @@ def get_users():
 
 
 @app.route("/<id>")
-def get_user_by_id(id: int):
+def get_user_by_id(id):
     user_from_db = Database.get_user_from_db_by_id(id)
     user = User(user_from_db).to_dict()
     return jsonify(user)
+
+
+@app.route("/", methods=["POST"])
+def create_user():
+    new_user_from_db = Database.create(request.json)
+    new_user = User(new_user_from_db).to_dict()
+    return jsonify(new_user)
 
 
 def start_server(host: str = "0.0.0.0", port: int = 8000):
