@@ -33,6 +33,12 @@ def update_user_by_id(id):
     updated_user = User(updated_user_from_db).to_dict()
     return jsonify(updated_user)
 
+@app.route("/<id>", methods=["DELETE"])
+def delete_user_by_id(id):
+    deleted_user_from_db = UserService.delete(id)
+    deleted_user = User(deleted_user_from_db).to_dict()
+    return jsonify(deleted_user)
+
 
 def start_server(host: str = "0.0.0.0", port: int = 8000):
     print(f"Server in running on port {port}")

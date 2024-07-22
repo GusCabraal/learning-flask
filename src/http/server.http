@@ -24,3 +24,6 @@ content-type: application/json
     "cpf": "123"
 }
 
+
+### Delete user by id
+DELETE http://localhost:8000/1 HTTP/1.1
