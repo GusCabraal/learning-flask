@@ -19,7 +19,7 @@ def get_user_by_id(id):
         user = GetUserById.execute(id)
         return jsonify(user)
     except Exception as error:
-        return jsonify(error.args)
+        return jsonify({"error": error.args})
 
 
 @users_controller.route("/", methods=["POST"])
