@@ -10,8 +10,7 @@ class UserService(PgService):
 
     @classmethod
     def get_from_db_by_id(self, id):
-        response = self.run_query("SELECT * FROM users WHERE id = %s;", [id])
-        return response[0]
+        return self.run_query("SELECT * FROM users WHERE id = %s;", [id])
 
     @classmethod
     def create(self, data):
@@ -28,7 +27,7 @@ class UserService(PgService):
             (data["name"], data["cpf"], id),
         )
         return response[0]
-    
+
     @classmethod
     def delete(self, id):
         response = self.run_query(
