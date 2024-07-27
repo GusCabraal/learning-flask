@@ -1,6 +1,7 @@
 from flask import jsonify, request, Blueprint
 from infra.service.user_service import UserService
 from usecases.get_user_by_id_usecase import GetUserById
+from usecases.create_user_usecase import CreateUser
 from infra.model.user_model import User
 
 users_controller = Blueprint("users", __name__)
@@ -21,8 +22,7 @@ def get_user_by_id(id):
 
 @users_controller.route("/", methods=["POST"])
 def create_user():
-    new_user_from_db = UserService.create(request.json)
-    new_user = User(new_user_from_db).to_dict()
+    new_user = CreateUser.execute(request.json)
     return jsonify(new_user)
 
 

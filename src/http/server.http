@@ -12,7 +12,8 @@ content-type: application/json
 
 {
     "name": "Gustavo Cabral",
-    "cpf": "123"
+    "cpf": "123.123-;123.12",
+    "email": "gustavo@email.com"
 }
 
 ### Update user
